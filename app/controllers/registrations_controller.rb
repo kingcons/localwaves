@@ -5,8 +5,7 @@ class RegistrationsController < ApplicationController
                      password: params[:password],
                      password_confirmation: params[:password])
     if @user.save
-      render json: { user: @user },
-        status: :created
+      render :create, status: :created
     else
       render json: { errors: @user.errors.full_messages },
         status: :unprocessable_entity
@@ -17,6 +16,7 @@ class RegistrationsController < ApplicationController
     @user = User.find_by!(username: params[:email])
     if @user.authenticate(params[:password])
       @user.regenerate_token!
+      render :create, status: :accepted
     else
       render json: { message: "You don't have permission to reset this user's token." },
         status: :unauthorized
@@ -27,6 +27,8 @@ class RegistrationsController < ApplicationController
     @user = User.find_by!(username: params[:email])
     if @user.authenticate(params[:password])
       @user.destroy!
+      render json: { message: "User '#{params[:email]}' was destroyed." },
+        status: :no_content
     else
       render json: { message: "Incorrect username or password." },
         status: :unauthorized
