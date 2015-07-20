@@ -1,9 +1,11 @@
 class User < ActiveRecord::Base
   EMAIL_REGEX = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
 
-  validates_presence_of :username, :email, :password, :access_token
+  validates_presence_of :username, :email, :password_digest, :access_token
   validates :email, format: { with: EMAIL_REGEX,
                               message: "is not a valid email" }
+
+  has_secure_password
 
   before_validation :ensure_access_token
 
