@@ -1,6 +1,6 @@
 ## LocalWaves
 
-* Currently running on [https://mighty-crag-3152.herokuapp.com/]
+* Currently running on: https://mighty-crag-3152.herokuapp.com/
 
 ### User Registration & Auth
 
@@ -49,6 +49,7 @@ Example Failure (Code 422 - Unprocessable Entity):
 **Params:**
 
 | Parameter | Type   |
+| --------- | ------ |
 | Username  | String |
 | Password  | String |
 
@@ -72,6 +73,7 @@ Example Failure (Code 401 - Unauthorized):
 **Params:**
 
 | Parameter | Type   |
+| --------- | ------ |
 | Username  | String |
 | Password  | String |
 
