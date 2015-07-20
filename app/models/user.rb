@@ -28,4 +28,12 @@ class User < ActiveRecord::Base
     self.access_token = nil
     self.save
   end
+
+  def soundcloud
+    opts = {
+      access_token: self.access_token,
+      refresh_token: self.refresh_token
+    }
+    SoundcloudApi.new(opts)
+  end
 end
