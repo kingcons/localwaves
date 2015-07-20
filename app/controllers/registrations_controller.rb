@@ -8,7 +8,7 @@ class RegistrationsController < ApplicationController
                      city: params[:city],
                      state: params[:state])
     if @user.save
-      render :create, status: :created
+      render 'create.json.jbuilder', status: :created
     else
       render json: { errors: @user.errors.full_messages },
         status: :unprocessable_entity
