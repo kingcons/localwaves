@@ -22,4 +22,9 @@ class User < ActiveRecord::Base
     end
     token
   end
+
+  def regenerate_token!
+    self.access_token = nil
+    self.save
+  end
 end
