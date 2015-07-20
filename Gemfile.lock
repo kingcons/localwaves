@@ -55,6 +55,8 @@ GEM
     debug_inspector (0.0.2)
     erubis (2.7.0)
     execjs (2.5.2)
+    foreman (0.78.0)
+      thor (~> 0.19.1)
     globalid (0.3.5)
       activesupport (>= 4.1.0)
     hashie (2.1.2)
@@ -93,6 +95,8 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
+    puma (2.11.1)
+      rack (>= 1.1, < 2.0)
     rack (1.6.4)
     rack-cors (0.4.0)
     rack-test (0.6.3)
@@ -173,10 +177,12 @@ DEPENDENCIES
   bcrypt (~> 3.1.7)
   byebug
   coffee-rails (~> 4.1.0)
+  foreman
   jbuilder (~> 2.0)
   jquery-rails
   pg
   pry
+  puma
   rack-cors
   rails (= 4.2.1)
   rails_12factor

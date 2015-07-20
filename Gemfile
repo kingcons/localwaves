@@ -27,6 +27,11 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 
+# Use a better app server
+gem 'puma'
+# Use foreman for environment management
+gem 'foreman'
+
 # Use Unicorn as the app server
 # gem 'unicorn'
 
