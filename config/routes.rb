@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
 
   post "users", to: 'registrations#create'
-  post 'users/oauth', to: 'registrations#oauth'
-  delete "user/:username", to: 'registrations#destroy'
-  delete "user/:username/token", to: 'registrations#reset'
+  get 'users/oauth', to: 'registrations#oauth'
+  delete "user/:id", to: 'registrations#destroy'
+  delete "user/:id/token", to: 'registrations#reset'
 
   # get 'users/oauth_test', to: 'registrations#oauth_test'
 
