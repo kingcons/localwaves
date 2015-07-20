@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   end
 
   rescue_from ActiveRecord::RecordNotFound do |e|
-    logger.errors ">>> User asked for invalid record: #{e.message}"
+    logger.error ">>> User asked for invalid record: #{e.message}"
     render json: {
       message: "Couldn't find requested object",
       method: request.request_method,

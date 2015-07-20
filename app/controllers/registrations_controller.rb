@@ -13,21 +13,21 @@ class RegistrationsController < ApplicationController
   end
 
   def reset
-    @user = User.find_by!(username: params[:email])
+    @user = User.find_by!(username: params[:username])
     if @user.authenticate(params[:password])
       @user.regenerate_token!
       render :create, status: :accepted
     else
-      render json: { message: "You don't have permission to reset this user's token." },
+      render json: { message: "You don't have permission to reset token for: '#{params[:username]}'." },
         status: :unauthorized
     end
   end
 
   def destroy
-    @user = User.find_by!(username: params[:email])
+    @user = User.find_by!(username: params[:username])
     if @user.authenticate(params[:password])
       @user.destroy!
-      render json: { message: "User '#{params[:email]}' was destroyed." },
+      render json: { message: "User '#{params[:username]}' was destroyed." },
         status: :no_content
     else
       render json: { message: "Incorrect username or password." },
