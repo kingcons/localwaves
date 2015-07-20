@@ -1,10 +1,11 @@
 source 'https://rubygems.org'
 
+ruby '2.1.5'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.1'
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+# Use postgres, a *real* database.
+gem 'pg'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -32,7 +33,15 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+# We want access to the Soundcloud API.
+gem 'soundcloud'
+# Being available for frontend is also p cool.
+gem 'rack-cors', require: 'rack/cors'
+
 group :development, :test do
+  # Additionally, I'm a pry fan myself.
+  gem 'pry'
+
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
 
@@ -43,3 +52,7 @@ group :development, :test do
   gem 'spring'
 end
 
+group :production do
+  # Gotta keep Heroku happy.
+  gem "rails_12factor"
+end
