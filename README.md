@@ -100,6 +100,9 @@ Example Failure: (Code 401 - Unauthorized):
 
 **NOTE:**
 
+    This endpoint is not intended to be used directly, but rather to be used as a
+    redirect URI for Soundcloud API integration with a separate frontend.
+
     This route requires coordination as to Client ID, Secret and Redirect URI
     with the Rails API user.
 
@@ -115,8 +118,5 @@ Example Failure: (Code 401 - Unauthorized):
 The *code* param should be an authorization code received from Soundclound.
 
 The *state* param should be an email of a registered user.
-
-> This endpoint is not intended to be used directly, but rather to be used as a
-> redirect URI for Soundcloud API integration with a separate frontend.
 
 Success will result in a redirect to the frontend home page.
