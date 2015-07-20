@@ -1,11 +1,12 @@
 class RegistrationsController < ApplicationController
-  before_action :authenticate_with_token, only: [:oauth]
+  # before_action :authenticate_with_token, only: [:oauth]
 
   def create
     @user = User.new(email: params[:email],
-                     username: params[:username],
                      password: params[:password],
-                     password_confirmation: params[:password])
+                     password_confirmation: params[:password],
+                     city: params[:city],
+                     state: params[:state])
     if @user.save
       render :create, status: :created
     else
@@ -26,25 +27,15 @@ class RegistrationsController < ApplicationController
     if params[:code]
       @api = SoundcloudApi.new.api
       @api.exchange_token(code: params[:code])
-      user_data = @api.get('/me')
 
-      @user = User.new(username: user_data.permalink,
-                       email: params[:email],
-                       password: params[:password],
-                       city: params[:city],
-                       state: params[:state],
-                       soundcloud_token: @api.access_token,
-                       refresh_token:    @api.refresh_token,
-                       expires_at:       @api.expires_at,
-                       artist_name:      user_data.artist_name)
-      if @user.save
-        render :oauth, status: :created
-      else
-        render json: {
-          message: "Errors occurred while trying to save the user.",
-          errors: @user.errors.full_messages
-        }, status: :unprocessable_entity
-      end
+      @user = User.find_by!(email: params[:state])
+      user_data = @api.get('/me')
+      @user.update(username: user_data.permalink,
+                   soundcloud_token: @api.access_token,
+                   refresh_token:    @api.refresh_token,
+                   expires_at:       @api.expires_at,
+                   artist_name:      user_data.artist_name)
+      redirect_to "http://localhost:8000/#/home"
     else
       render json: { message: "No authorization code from soundcloud found!" },
         status: :unprocessable_entity
@@ -52,21 +43,21 @@ class RegistrationsController < ApplicationController
   end
 
   def reset
-    @user = User.find_by!(username: params[:username])
+    @user = User.find(params[:id])
     if @user.authenticate(params[:password])
       @user.regenerate_token!
       render :create, status: :accepted
     else
-      render json: { message: "You don't have permission to reset token for: '#{params[:username]}'." },
+      render json: { message: "You don't have permission to reset token for: '#{params[:email]}'." },
         status: :unauthorized
     end
   end
 
   def destroy
-    @user = User.find_by!(username: params[:username])
+    @user = User.find(params[:id])
     if @user.authenticate(params[:password])
       @user.destroy!
-      render json: { message: "User '#{params[:username]}' was destroyed." },
+      render json: { message: "User '#{params[:email]}' was destroyed." },
         status: :no_content
     else
       render json: { message: "Incorrect username or password." },

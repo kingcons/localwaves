@@ -20,9 +20,10 @@ an 'Access-Token' header along with the request.
 
 | Parameter |  Type  |
 | --------- |  ----  |
-|  Username | String |
 |  Email    | String |
 |  Password | String |
+|  City     | String |
+|  State    | String |
 
 Note that Usernames and Emails in LocalWaves must be unique.
 
@@ -52,13 +53,12 @@ Example Failure (Code 422 - Unprocessable Entity):
 
 #### Deleting a User
 
-**Route:** `DELETE /user/:username`
+**Route:** `DELETE /user/:id`
 
 **Params:**
 
 | Parameter | Type   |
 | --------- | ------ |
-| Username  | String |
 | Password  | String |
 
 Example Success (Code 204 - No Content):
@@ -76,13 +76,12 @@ Example Failure (Code 401 - Unauthorized):
 
 #### Resetting a User's Access Token
 
-**Route:** `DELETE /user/:username/token`
+**Route:** `DELETE /user/:id/token`
 
 **Params:**
 
 | Parameter | Type   |
 | --------- | ------ |
-| Username  | String |
 | Password  | String |
 
 Example Success (Code 202 - Accepted):
@@ -102,27 +101,22 @@ Example Failure: (Code 401 - Unauthorized):
 **NOTE:**
 
     This route requires coordination as to Client ID, Secret and Redirect URI
-    with the Rails API user. Additionally, calls to this route require a
-    valid Access-Token to be supplied in the request headers.
+    with the Rails API user.
 
-**Route:** `POST /user/:username/oauth`
+**Route:** `POST /users/oauth`
 
 **Params:**
 
 | Parameter | Type   |
 | --------- | ------ |
 | Code      | String |
-| Email     | String |
-| Password  | String |
-| City      | String |
 | State     | String |
 
 The *code* param should be an authorization code received from Soundclound.
 
-Example Success (Code 201 - Created)
+The *state* param should be an email of a registered user.
 
-Example Failure (Code 422 - Unprocessable Entity)
+> This endpoint is not intended to be used directly, but rather to be used as a
+> redirect URI for Soundcloud API integration with a separate frontend.
 
-The failure message will contain a message and (if the failure was due
-to duplicate user data) potentially, a list of errors from failed User validations.
-(Currently just that user emails must be unique.)
+Success will result in a redirect to the frontend home page.
