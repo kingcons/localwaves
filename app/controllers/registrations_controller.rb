@@ -26,11 +26,15 @@ class RegistrationsController < ApplicationController
     if params[:code]
       @api = SoundcloudApi.new.api
       @api.exchange_token(code: params[:code])
+      user_data = @api.get('/me')
       current_user.update!(soundcloud_token: @api.access_token,
                            refresh_token:    @api.refresh_token,
-                           expires_at:       @api.expires_at)
-    render json: { message: "Soundcloud account access granted for '#{@user.username}'!" },
-      status: :created
+                           expires_at:       @api.expires_at,
+                           artist_name:      user_data.artist_name,
+                           city:             user_data.city,
+                           country:          user_data.country)
+      render json: { message: "Soundcloud account access granted for '#{@user.username}'!" },
+        status: :created
     else
       render json: { message: "No authorization code from soundcloud found!" },
         status: :unprocessable_entity
