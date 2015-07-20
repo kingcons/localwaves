@@ -27,16 +27,24 @@ class RegistrationsController < ApplicationController
       @api = SoundcloudApi.new.api
       @api.exchange_token(code: params[:code])
       user_data = @api.get('/me')
-      @user = User.create(username: user_data.permalink,
-                          email: params[:email],
-                          password: params[:password],
-                          city: params[:city],
-                          state: params[:state],
-                          soundcloud_token: @api.access_token,
-                          refresh_token:    @api.refresh_token,
-                          expires_at:       @api.expires_at,
-                          artist_name:      user_data.artist_name)
-      render :oauth, status: :created
+
+      @user = User.new(username: user_data.permalink,
+                       email: params[:email],
+                       password: params[:password],
+                       city: params[:city],
+                       state: params[:state],
+                       soundcloud_token: @api.access_token,
+                       refresh_token:    @api.refresh_token,
+                       expires_at:       @api.expires_at,
+                       artist_name:      user_data.artist_name)
+      if @user.save
+        render :oauth, status: :created
+      else
+        render json: {
+          message: "Errors occurred while trying to save the user.",
+          errors: @user.errors.full_messages
+        }, status: :unprocessable_entity
+      end
     else
       render json: { message: "No authorization code from soundcloud found!" },
         status: :unprocessable_entity

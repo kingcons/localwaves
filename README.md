@@ -112,9 +112,17 @@ Example Failure: (Code 401 - Unauthorized):
 | Parameter | Type   |
 | --------- | ------ |
 | Code      | String |
+| Email     | String |
+| Password  | String |
+| City      | String |
+| State     | String |
 
 The *code* param should be an authorization code received from Soundclound.
 
 Example Success (Code 201 - Created)
 
 Example Failure (Code 422 - Unprocessable Entity)
+
+The failure message will contain a message and (if the failure was due
+to duplicate user data) potentially, a list of errors from failed User validations.
+(Currently just that user emails must be unique.)
