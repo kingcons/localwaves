@@ -46,7 +46,7 @@ class RegistrationsController < ApplicationController
     @user = User.find(params[:id])
     if @user.authenticate(params[:password])
       @user.regenerate_token!
-      render :create, status: :accepted
+      render 'create.json.jbuilder', status: :accepted
     else
       render json: { message: "You don't have permission to reset token for: '#{params[:email]}'." },
         status: :unauthorized
