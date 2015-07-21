@@ -1,7 +1,7 @@
 class RegistrationsController < ApplicationController
   # before_action :authenticate_with_token, only: [:oauth]
 
-  def create
+  def sign_up
     @user = User.new(email: params[:email],
                      password: params[:password],
                      password_confirmation: params[:password],
@@ -49,17 +49,6 @@ class RegistrationsController < ApplicationController
     else
       render json: { message: "No authorization code from soundcloud found!" },
         status: :unprocessable_entity
-    end
-  end
-
-  def reset
-    @user = User.find(params[:id])
-    if @user.authenticate(params[:password])
-      @user.regenerate_token!
-      render 'create.json.jbuilder', status: :accepted
-    else
-      render json: { message: "You don't have permission to reset token for: '#{params[:email]}'." },
-        status: :unauthorized
     end
   end
 
