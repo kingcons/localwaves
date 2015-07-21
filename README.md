@@ -96,6 +96,27 @@ Example Failure: (Code 401 - Unauthorized):
 }
 ```
 
+#### Logging In with an Existing User
+
+**Route:** `POST /users/sign_in`
+
+**Params:**
+
+| Parameter | Type   |
+| --------- | ------ |
+| Email     | String |
+| Password  | String |
+
+Example Success (Code 200 - OK) - Same as Created JSON
+
+Example Failure (Code 401 - Unauthorized)
+
+```json
+{
+  "message": "Incorrect email or password."
+}
+```
+
 #### Adding OAuth Access to a User's Soundcloud Account
 
 **NOTE:**

@@ -23,6 +23,16 @@ class RegistrationsController < ApplicationController
     # modifies the client instance we have. So I need a fuckin factory now. :-/
   end
 
+  def login
+    @user = User.find_by!(email: params[:email])
+    if @user.authenticate(params[:password])
+      render 'create.json.jbuilder', status: :ok
+    else
+      render json: { message: "Incorrect email or password." },
+        status: :unauthorized
+    end
+  end
+
   def oauth
     if params[:code]
       @api = SoundcloudApi.new.api
