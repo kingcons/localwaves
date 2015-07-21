@@ -48,7 +48,7 @@ class RegistrationsController < ApplicationController
                    refresh_token:    @api.refresh_token,
                    expires_at:       @api.expires_at,
                    artist_name:      user_data.artist_name)
-      # TrackImportJob.perform_later(@user)
+      TrackImportJob.perform_later(@user)
       redirect_to "http://localhost:8000/#/home"
     else
       render json: { message: "No authorization code from soundcloud found!" },
