@@ -2,6 +2,7 @@ Rails.application.routes.draw do
 
   post "users", to: 'registrations#create'
   get 'users/oauth', to: 'registrations#oauth'
+  post "users/sign_in", to: 'registrations#login'
   delete "user/:id", to: 'registrations#destroy'
   delete "user/:id/token", to: 'registrations#reset'
 
