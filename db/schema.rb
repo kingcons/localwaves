@@ -11,10 +11,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150720211014) do
+ActiveRecord::Schema.define(version: 20150721185307) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "tracks", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "soundcloud_id"
+    t.string   "title"
+    t.text     "description"
+    t.string   "genre"
+    t.string   "license"
+    t.string   "permalink_url"
+    t.string   "artwork_url"
+    t.string   "waveform_url"
+    t.string   "stream_url"
+    t.string   "purchase_url"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "username"
