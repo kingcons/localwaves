@@ -1,7 +1,7 @@
 class RegistrationsController < ApplicationController
   # before_action :authenticate_with_token, only: [:oauth]
 
-  def sign_up
+  def create
     @user = User.new(email: params[:email],
                      password: params[:password],
                      password_confirmation: params[:password],
@@ -41,26 +41,16 @@ class RegistrationsController < ApplicationController
       @user = User.find_by!(email: params[:state])
       user_data = @api.get('/me')
       @user.update(username: user_data.permalink,
+                   soundcloud_id:    user_data.id,
                    soundcloud_token: @api.access_token,
                    refresh_token:    @api.refresh_token,
                    expires_at:       @api.expires_at,
                    artist_name:      user_data.artist_name)
+      # TrackImportJob.perform_later(@user)
       redirect_to "http://localhost:8000/#/home"
     else
       render json: { message: "No authorization code from soundcloud found!" },
         status: :unprocessable_entity
-    end
-  end
-
-  def destroy
-    @user = User.find(params[:id])
-    if @user.authenticate(params[:password])
-      @user.destroy!
-      render json: { message: "User '#{params[:email]}' was destroyed." },
-        status: :no_content
-    else
-      render json: { message: "Incorrect username or password." },
-        status: :unauthorized
     end
   end
 end
