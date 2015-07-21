@@ -5,7 +5,7 @@ class TrackImporter
   end
 
   def run!
-    songs = @api.get("/users/#{@user.soundcloud}/tracks")
+    songs = @api.get("/users/#{@user.soundcloud_id}/tracks")
     songs.each do |song_data|
       begin
         self.import_track(song_data)
