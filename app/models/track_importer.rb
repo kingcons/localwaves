@@ -1,7 +1,7 @@
 class TrackImporter
   def initialize(user)
     @user = user
-    @api = SoundcloudApi.new(access_token: user.soundcloud_token)
+    @api = SoundcloudApi.new(access_token: user.soundcloud_token).api
   end
 
   def run!
