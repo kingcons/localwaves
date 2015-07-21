@@ -51,51 +51,6 @@ Example Failure (Code 422 - Unprocessable Entity):
 }
 ```
 
-#### Deleting a User
-
-**Route:** `DELETE /user/:id`
-
-**Params:**
-
-| Parameter | Type   |
-| --------- | ------ |
-| Password  | String |
-
-Example Success (Code 204 - No Content):
-
-```json
-```
-
-Example Failure (Code 401 - Unauthorized):
-
-```json
-{
-  "message": "Incorrect username or password."
-}
-```
-
-#### Resetting a User's Access Token
-
-**Route:** `DELETE /user/:id/token`
-
-**Params:**
-
-| Parameter | Type   |
-| --------- | ------ |
-| Password  | String |
-
-Example Success (Code 202 - Accepted):
-
-(Same JSON as User Creation)
-
-Example Failure: (Code 401 - Unauthorized):
-
-```json
-{
-  "message": "You don't have permission to reset token for: 'foo5'."
-}
-```
-
 #### Logging In with an Existing User
 
 **Route:** `POST /users/sign_in`
@@ -141,3 +96,82 @@ The *code* param should be an authorization code received from Soundclound.
 The *state* param should be an email of a registered user.
 
 Success will result in a redirect to the frontend home page.
+
+### User Data
+
+#### Getting a User's Info
+
+**Route:** `GET /user/:id`
+
+**Params:** None
+
+Example Success (Code 200 - OK):
+
+```json
+{
+  "user": {
+    "id": 1,
+    "email": "brit@tiy.com",
+    "username": "awesomesauce",
+    "artist_name": null,
+    "access_token": "15b3215dbb564a1e539c9691f9da3152",
+    "city": null,
+    "state": null
+  }
+}
+```
+
+Example Failure (Code 404 - Not Found):
+
+```json
+{
+  "message": "Couldn't find requested object",
+  "method": "GET",
+  "path": "/user/48"
+}
+```
+
+#### Deleting a User
+
+**Route:** `DELETE /user/:id`
+
+**Params:**
+
+| Parameter | Type   |
+| --------- | ------ |
+| Password  | String |
+
+Example Success (Code 204 - No Content):
+
+```json
+```
+
+Example Failure (Code 401 - Unauthorized):
+
+```json
+{
+  "message": "Incorrect username or password."
+}
+```
+
+#### Resetting a User's Access Token
+
+**Route:** `DELETE /user/:id/token`
+
+**Params:**
+
+| Parameter | Type   |
+| --------- | ------ |
+| Password  | String |
+
+Example Success (Code 202 - Accepted):
+
+(Same JSON as User Creation)
+
+Example Failure: (Code 401 - Unauthorized):
+
+```json
+{
+  "message": "You don't have permission to reset token for: 'foo5'."
+}
+```

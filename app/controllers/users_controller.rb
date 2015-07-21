@@ -3,7 +3,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    render 'show.json.jbuilder'
+    render 'show.json.jbuilder', status: :ok
   end
 
   def reset
