@@ -38,7 +38,7 @@ class RegistrationsController < ApplicationController
       @api = SoundcloudApi.new.api
       @api.exchange_token(code: params[:code])
 
-      @user = User.find_by!(email: params[:state])
+      @user = User.find_by!(email: params[:email])
       user_data = @api.get('/me')
       @user.update(username: user_data.permalink,
                    soundcloud_id:    user_data.id,
