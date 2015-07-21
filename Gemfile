@@ -31,6 +31,8 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'puma'
 # Use foreman for environment management
 gem 'foreman'
+# We probably want background jobs now.
+gem 'resque'
 
 # Use Unicorn as the app server
 # gem 'unicorn'
