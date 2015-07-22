@@ -25,13 +25,9 @@ class UsersController < ApplicationController
 
   def destroy
     @user = User.find(params[:id])
-    if @user.authenticate(params[:password])
-      @user.destroy!
-      render json: { message: "User '#{params[:email]}' was destroyed." },
-        status: :no_content
-    else
-      render json: { message: "Incorrect username or password." },
-        status: :unauthorized
-    end
+    @user.destroy!
+
+    render json: { message: "User '#{@user.username}' was destroyed." },
+      status: :no_content
   end
 end
