@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   post "user/:id/sync", to: 'users#sync'
 
   get "user/:id/tracks", to: 'tracks#index'
+  get "tracks/search", to: 'tracks#search'
+
   # get 'users/oauth_test', to: 'registrations#oauth_test'
 
   # The priority is based upon order of creation: first created -> highest priority.

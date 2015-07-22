@@ -131,6 +131,20 @@ Example Failure (Code 404 - Not Found):
 }
 ```
 
+#### Requesting Sync of User's Tracks
+
+**Route:** `POST /user/:id/sync`
+
+**Params:** None
+
+Example Success (Code 200 - OK):
+
+```json
+{
+  "message": "TrackImportJob has been queued."
+}
+```
+
 #### Deleting a User
 
 **Route:** `DELETE /user/:id`
@@ -173,5 +187,25 @@ Example Failure: (Code 401 - Unauthorized):
 ```json
 {
   "message": "You don't have permission to reset token for: 'foo5'."
+}
+```
+
+### Track Data
+
+#### Getting a User's Tracks
+
+**Route:** `GET /user/:id/tracks`
+
+**Params:** None
+
+Example Success (Code 200 - OK):
+
+```json
+{
+  "tracks": [
+    {},
+    {},
+    {}
+  ]
 }
 ```
