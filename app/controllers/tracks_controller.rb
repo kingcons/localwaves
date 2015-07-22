@@ -7,7 +7,7 @@ class TracksController < ApplicationController
 
   def index
     @page = params[:page] || 1
-    @tracks = Track.page(@page)
+    @tracks = Track.includes(:user).page(@page)
     render 'index.json.jbuilder', status: :ok
   end
 
