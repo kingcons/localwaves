@@ -12,7 +12,7 @@ class TracksController < ApplicationController
   end
 
   def completion
-    @places = User.distinct.pluck(:city, :state).group_by(&:second).map{|k, v| [k, v.map(&:first)]}.to_h
+    @states = User.distinct.pluck(:city, :state).group_by(&:second).map{|k, v| [k, v.map(&:first)]}.to_h
     @genres = Track.distinct.pluck(:genre)
     render 'completion.json.jbuilder', status: :ok
   end
