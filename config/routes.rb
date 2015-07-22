@@ -11,6 +11,7 @@ Rails.application.routes.draw do
 
   get "user/:id/tracks", to: 'tracks#index'
   get "tracks/search", to: 'tracks#search'
+  get "tracks/completion", to: 'tracks#completion'
 
   # get 'users/oauth_test', to: 'registrations#oauth_test'
 

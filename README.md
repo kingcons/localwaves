@@ -10,6 +10,10 @@ by Username/Password unless otherwise mentioned.
 Routes elsewhere in the app are authenticated by passing
 an 'Access-Token' header along with the request.
 
+## Parameters
+
+Italicized parameters are optional.
+
 ### User Registration & Auth
 
 #### Creating a User
@@ -207,5 +211,37 @@ Example Success (Code 200 - OK):
     {},
     {}
   ]
+}
+```
+
+#### Track Search
+
+**Route:** `GET /tracks/search`
+
+**Params:**
+
+| Parameter  | Type   |
+| ---------- | ------ |
+| City       | String |
+| State      | String |
+| *Genre*    | String |
+
+Example Success (Code 200 - OK):
+
+Same format as User's Tracks.
+
+#### Track Completions
+
+**Route:** `GET /tracks/completion`
+
+**Params:** None
+
+Example Success (Code 200 - OK):
+
+```json
+{
+  "cities": ["Atlanta", "Chicago", "New York", "San Antonio"],
+  "states": ["GA", "IL", "NY", "TX"],
+  "genres": ["Industrial", "Rap", "R&B", "Darkwave", "Witch Hop"]
 }
 ```
