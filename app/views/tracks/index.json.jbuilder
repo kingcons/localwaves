@@ -1,5 +1,5 @@
 json.array! @tracks do |track|
-  json.(track, :soundclound_id, :title, :description, :genre, :license,
+  json.(track, :soundcloud_id, :title, :description, :genre, :license,
     :permalink_url, :waveform_url, :stream_url, :purchase_url)
   json.location do
     json.city track.user.city
