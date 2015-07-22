@@ -9,7 +9,8 @@ Rails.application.routes.draw do
   delete "user/:id", to: 'users#destroy'
   post "user/:id/sync", to: 'users#sync'
 
-  get "user/:id/tracks", to: 'tracks#index'
+  get "user/:id/tracks", to: 'tracks#by_user'
+  get "tracks", to: 'tracks#index'
   get "tracks/search", to: 'tracks#search'
   get "tracks/completion", to: 'tracks#completion'
 

@@ -184,7 +184,7 @@ Example Failure (Code 401 - Unauthorized):
 
 Example Success (Code 202 - Accepted):
 
-(Same JSON as User Creation)
+  (Same JSON as User Creation)
 
 Example Failure: (Code 401 - Unauthorized):
 
@@ -228,7 +228,7 @@ Example Success (Code 200 - OK):
 
 Example Success (Code 200 - OK):
 
-Same format as User's Tracks.
+  Same format as User's Tracks.
 
 #### Track Completions
 
@@ -245,3 +245,19 @@ Example Success (Code 200 - OK):
   "genres": ["Industrial", "Rap", "R&B", "Darkwave", "Witch Hop"]
 }
 ```
+
+#### All Tracks
+
+**Route:** `GET /tracks`
+
+**Params:**
+
+| Parameter | Type   |
+| --------- | -----  |
+| *Page*    | Number |
+
+Returns the tracks in pages of 25 ordered by database ID.
+
+Example Success (Code 200 - OK):
+
+  Same format as User's Tracks.
