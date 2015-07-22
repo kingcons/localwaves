@@ -5,5 +5,5 @@ json.array! @tracks do |track|
     json.city track.user.city
     json.state track.user.state
   end
-  json.artist track.user.artist_name
+  json.artist track.user
 end
