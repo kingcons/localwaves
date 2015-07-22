@@ -7,7 +7,9 @@ Rails.application.routes.draw do
   get "user/:id", to: 'users#show'
   delete "user/:id/token", to: 'users#reset'
   delete "user/:id", to: 'users#destroy'
+  post "user/:id/sync", to: 'users#sync'
 
+  get "user/:id/tracks", to: 'tracks#index'
   # get 'users/oauth_test', to: 'registrations#oauth_test'
 
   # The priority is based upon order of creation: first created -> highest priority.

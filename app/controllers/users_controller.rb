@@ -1,9 +1,15 @@
 class UsersController < ApplicationController
-  before_action :authenticate_with_token!
+  before_action :authenticate_with_token!, except: [:show]
 
   def show
     @user = User.find(params[:id])
     render 'show.json.jbuilder', status: :ok
+  end
+
+  def sync
+    TrackImportJob.perform_later(current_user)
+    render json: { message: "TrackImportJob has been queued." },
+      status: :ok
   end
 
   def reset
