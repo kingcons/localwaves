@@ -50,7 +50,7 @@ class RegistrationsController < ApplicationController
                    artist_name:      user_data.username,
                    avatar_url:       user_data.avatar_url)
       TrackImportJob.perform_later(@user)
-      redirect_to "http://localhost:8000/#/home"
+      redirect_to FRONTEND_REDIRECT_URI
     else
       render json: { message: "No authorization code from soundcloud found!" },
         status: :unprocessable_entity
