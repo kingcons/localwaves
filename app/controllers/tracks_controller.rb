@@ -18,9 +18,25 @@ class TracksController < ApplicationController
   end
 
   def search
+    ## HHAAAAACKS
     if params[:city] && params[:state]
       @users = User.where(city: params[:city], state: params[:state])
-      @tracks = Track.joins(:user).where("users.id" => @users)
+
+      query = {"users.id" => @users}
+      query.merge({"tracks.genre" => params[:genre]}) if params[:genre]
+
+      @tracks = Track.joins(:user).where(query)
+      render 'index.json.jbuilder', status: :ok
+    elsif params[:state]
+      @users = User.where(state: params[:state])
+
+      query = {"users.id" => @users}
+      query.merge({"tracks.genre" => params[:genre]}) if params[:genre]
+
+      @tracks = Track.joins(:user).where(query)
+      render 'index.json.jbuilder', status: :ok
+    elsif params[:genre]
+      @tracks = Track.where(genre: params[:genre])
       render 'index.json.jbuilder', status: :ok
     else
       render json: { message: "Missing City or State parameters." },
